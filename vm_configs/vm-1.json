@@ -1,0 +1,13 @@
+{
+    "vm_id": 1,
+    "vm_name": "ubuntu-vm-1",
+    "mac_address": "52:54:00:6a:31:74",
+    "vnc_port_host": 5900,
+    "vnc_password": "ee6BtBXa",
+    "uuid": "76d6629f-820e-4cb6-8041-69e962932f3d",
+    "bios_serial": "VMBS0001RND8036",
+    "cpu_model": "phenom",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-1.ovpn"
+}

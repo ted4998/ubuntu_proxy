@@ -1,0 +1,13 @@
+{
+    "vm_id": 3,
+    "vm_name": "ubuntu-vm-3",
+    "mac_address": "52:54:00:0a:26:fe",
+    "vnc_port_host": 5902,
+    "vnc_password": "dKHKb8mo",
+    "uuid": "fcde840f-38d4-4c19-9f9a-8b68abe72241",
+    "bios_serial": "VMBS0003RND2041",
+    "cpu_model": "Opteron_G3",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-3.ovpn"
+}
