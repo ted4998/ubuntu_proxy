@@ -1,0 +1,13 @@
+{
+    "vm_id": 7,
+    "vm_name": "ubuntu-vm-7",
+    "mac_address": "52:54:00:18:ec:15",
+    "vnc_port_host": 5906,
+    "vnc_password": "HI3OGZ1N",
+    "uuid": "2f251447-f229-4d9f-bc1d-7c77926263f5",
+    "bios_serial": "VMBS0007RND2388",
+    "cpu_model": "Opteron_G5",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-7.ovpn"
+}

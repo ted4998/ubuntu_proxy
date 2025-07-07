@@ -1,0 +1,13 @@
+{
+    "vm_id": 4,
+    "vm_name": "ubuntu-vm-4",
+    "mac_address": "52:54:00:1e:8f:a1",
+    "vnc_port_host": 5903,
+    "vnc_password": "EWFHYF6L",
+    "uuid": "15a2cf2f-c33b-42d4-8a69-7be2d82887e0",
+    "bios_serial": "VMBS0004RND4785",
+    "cpu_model": "qemu64",
+    "ram_size_mb": 2096,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-4.ovpn"
+}

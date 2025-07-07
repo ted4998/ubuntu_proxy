@@ -1,0 +1,13 @@
+{
+    "vm_id": 5,
+    "vm_name": "ubuntu-vm-5",
+    "mac_address": "52:54:00:67:25:9a",
+    "vnc_port_host": 5904,
+    "vnc_password": "a4wQXJPW",
+    "uuid": "c6c66a95-382c-491b-ab42-38733add2799",
+    "bios_serial": "VMBS0005RND9343",
+    "cpu_model": "EPYC-IBPB",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-5.ovpn"
+}
