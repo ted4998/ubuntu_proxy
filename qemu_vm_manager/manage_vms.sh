@@ -222,21 +222,39 @@ EOF
             log "Temporary content prepared."
 
             log "Starting temporary HTTP server for $vm_name on port $current_http_port..."
-            (cd "$current_temp_serve_dir" && python3 -m http.server "$current_http_port" &)
+            (cd "$current_temp_serve_dir" && python3 -m http.server "$current_http_port" > /dev/null 2>&1 &)
             http_server_pid=$!
 
-            log "Waiting up to 10s for HTTP server (PID: $http_server_pid) to start..."
-            local server_wait_time=0
-            while ! ps -p $http_server_pid > /dev/null && [ "$server_wait_time" -lt 10 ]; do
-                sleep 1; server_wait_time=$((server_wait_time + 1))
-            done
-
-            if ! ps -p $http_server_pid > /dev/null; then
-                log "Error: Failed to start temporary HTTP server (PID: $http_server_pid) for $vm_name. Skipping."
+            if ! [[ "$http_server_pid" =~ ^[0-9]+$ ]] || [ "$http_server_pid" -le 0 ]; then
+                log "Error: Failed to get a valid PID for the HTTP server for $vm_name. Python http.server may have failed to launch."
                 rm -rf "$current_temp_serve_dir"
                 continue
             fi
-            log "Temporary HTTP server started."
+
+            log "Waiting up to 10s for HTTP server (PID: $http_server_pid) to become active..."
+            local server_wait_time=0
+            # Try to see if the process is alive and listening (more robust check is hard without specific tools like lsof/netstat readily available and parsed)
+            # Basic check: is the process with this PID still running?
+            while ! ps -p "$http_server_pid" -o comm= | grep -q "python" && [ "$server_wait_time" -lt 10 ]; do
+                log "HTTP server PID $http_server_pid not yet confirmed as python or not running, wait attempt ${server_wait_time}/10..."
+                sleep 1
+                server_wait_time=$((server_wait_time + 1))
+                # Break if PID no longer exists at all
+                if ! ps -p "$http_server_pid" > /dev/null; then
+                    log "HTTP server PID $http_server_pid disappeared."
+                    break
+                fi
+            done
+
+            # Final check
+            if ! ps -p "$http_server_pid" -o comm= | grep -q "python"; then
+                log "Error: Failed to start or verify Python HTTP server (PID: $http_server_pid) for $vm_name after ${server_wait_time}s. Skipping."
+                # Attempt to kill just in case it's a zombie or wrong process
+                kill "$http_server_pid" 2>/dev/null || true
+                rm -rf "$current_temp_serve_dir"
+                continue
+            fi
+            log "Temporary HTTP server (PID: $http_server_pid) appears to be running."
 
             log "Starting Ubuntu installation for $vm_name. This will take a while..."
             log "  Installation VNC: localhost:$vnc_port_host (Display ID :$((vnc_port_host - 5900)))"
