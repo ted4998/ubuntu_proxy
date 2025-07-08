@@ -222,21 +222,57 @@ EOF
             log "Temporary content prepared."
 
             log "Starting temporary HTTP server for $vm_name on port $current_http_port..."
-            (cd "$current_temp_serve_dir" && python3 -m http.server "$current_http_port" &)
+            log "Attempting to start temporary HTTP server for $vm_name on port $current_http_port in $current_temp_serve_dir..."
+            # Launch in subshell, redirect stderr to a temp file to check for immediate errors like "port already in use"
+            HTTP_SERVER_ERROR_LOG=$(mktemp)
+            (cd "$current_temp_serve_dir" && python3 -m http.server "$current_http_port" > "${HTTP_SERVER_ERROR_LOG}" 2>&1 &)
             http_server_pid=$!
 
-            log "Waiting up to 10s for HTTP server (PID: $http_server_pid) to start..."
-            local server_wait_time=0
-            while ! ps -p $http_server_pid > /dev/null && [ "$server_wait_time" -lt 10 ]; do
-                sleep 1; server_wait_time=$((server_wait_time + 1))
-            done
+            # Give it a moment to either start or fail quickly
+            sleep 2
 
-            if ! ps -p $http_server_pid > /dev/null; then
-                log "Error: Failed to start temporary HTTP server (PID: $http_server_pid) for $vm_name. Skipping."
+            if ! ps -p "$http_server_pid" > /dev/null; then
+                log "Error: HTTP server process (PID $http_server_pid) for $vm_name did not start or exited immediately."
+                if [ -s "$HTTP_SERVER_ERROR_LOG" ]; then
+                    log "HTTP Server stderr/stdout:"
+                    cat "$HTTP_SERVER_ERROR_LOG"
+                else
+                    log "No specific error output from HTTP server captured. Check if port $current_http_port is in use or if python3 http.server works manually."
+                fi
+                rm -f "$HTTP_SERVER_ERROR_LOG"
                 rm -rf "$current_temp_serve_dir"
                 continue
             fi
-            log "Temporary HTTP server started."
+
+            # Check if the process is indeed python
+            if ! ps -p "$http_server_pid" -o comm= | grep -q "python"; then
+                log "Error: Process with PID $http_server_pid for $vm_name is not a Python process. HTTP server launch likely failed."
+                if [ -s "$HTTP_SERVER_ERROR_LOG" ]; then
+                    log "HTTP Server stderr/stdout:"
+                    cat "$HTTP_SERVER_ERROR_LOG"
+                fi
+                kill "$http_server_pid" 2>/dev/null || true # Attempt to kill the unexpected process
+                rm -f "$HTTP_SERVER_ERROR_LOG"
+                rm -rf "$current_temp_serve_dir"
+                continue
+            fi
+
+            # Check if server produced immediate errors (e.g. port in use) even if process started
+            # Python's http.server usually prints "Serving HTTP on 0.0.0.0 port XXXX" on success to stdout.
+            # If it prints an error to stderr (like address already in use) and exits, the PID might be caught briefly.
+            # The redirection to HTTP_SERVER_ERROR_LOG captures both.
+            if [ -s "$HTTP_SERVER_ERROR_LOG" ] && grep -E "Address already in use|Errno 98" "$HTTP_SERVER_ERROR_LOG"; then
+                log "Error: HTTP server for $vm_name failed to start, likely port $current_http_port is already in use."
+                log "HTTP Server output:"
+                cat "$HTTP_SERVER_ERROR_LOG"
+                kill "$http_server_pid" 2>/dev/null || true
+                rm -f "$HTTP_SERVER_ERROR_LOG"
+                rm -rf "$current_temp_serve_dir"
+                continue
+            fi
+
+            rm -f "$HTTP_SERVER_ERROR_LOG" # Clean up log if no critical error found yet
+            log "Temporary HTTP server (PID: $http_server_pid) for $vm_name appears to be running."
 
             log "Starting Ubuntu installation for $vm_name. This will take a while..."
             log "  Installation VNC: localhost:$vnc_port_host (Display ID :$((vnc_port_host - 5900)))"
