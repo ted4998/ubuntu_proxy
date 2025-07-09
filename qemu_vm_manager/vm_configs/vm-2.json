@@ -1,0 +1,13 @@
+{
+    "vm_id": 2,
+    "vm_name": "ubuntu-vm-2",
+    "mac_address": "52:54:00:39:79:f6",
+    "vnc_port_host": 5901,
+    "vnc_password": "g4mcmFhk",
+    "uuid": "a2d8d5d5-2c9b-48a5-97b6-498ae0b05661",
+    "bios_serial": "VMBS0002RND1783",
+    "cpu_model": "SandyBridge-IBRS",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-2.ovpn"
+}

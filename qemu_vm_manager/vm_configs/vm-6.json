@@ -1,0 +1,13 @@
+{
+    "vm_id": 6,
+    "vm_name": "ubuntu-vm-6",
+    "mac_address": "52:54:00:76:96:11",
+    "vnc_port_host": 5905,
+    "vnc_password": "5vL7Jkur",
+    "uuid": "e0f78ebc-e071-42b9-a79e-f521ab2ce61b",
+    "bios_serial": "VMBS0006RND6723",
+    "cpu_model": "Opteron_G2",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-6.ovpn"
+}
