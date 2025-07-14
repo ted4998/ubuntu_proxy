@@ -376,8 +376,10 @@ EOF
             log "Starting Ubuntu installation for $vm_name. This will take a while..."
             log "  Installation VNC: localhost:$vnc_port_host (Display ID :$((vnc_port_host - 5900)))"
 
-            local preseed_url="http://${HOST_IP_FOR_GUEST}:${current_http_port}/preseed.cfg"
-            local params_url="http://${HOST_IP_FOR_GUEST}:${current_http_port}/${vm_params_script_name}"
+            # Create a QEMU command without -append (which doesn't work with ISO boot)
+            # Instead, we'll rely on manual GRUB menu editing during installation
+            # For fully automated installation, we'd need to create a custom ISO with preseed built-in
+            
             local vnc_display_id=$((vnc_port_host - 5900))
 
             local qemu_install_cmd=(
@@ -388,8 +390,13 @@ EOF
                 -device "virtio-net-pci,netdev=net0,mac=${mac_address}"
                 -vnc ":${vnc_display_id}" -k en-us -machine q35,accel=kvm
                 -serial mon:stdio -display none
-                -append "auto=true priority=critical quiet splash --- preseed/url=${preseed_url} vm_setup_params_url=${params_url} DEBCONF_DEBUG=5"
             )
+
+            log "IMPORTANT: For automated installation, you need to manually edit GRUB during boot:"
+            log "  1. At GRUB menu, press 'e' to edit"
+            log "  2. Add to kernel line: auto=true priority=critical url=http://10.0.2.2:$current_http_port/preseed.cfg"
+            log "  3. Press Ctrl+X to continue"
+            log "  Preseed URL for $vm_name: http://10.0.2.2:$current_http_port/preseed.cfg"
 
             log "Executing QEMU for installation: ${qemu_install_cmd[*]}"
             set +e
