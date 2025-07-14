@@ -68,12 +68,12 @@ fi
 echo ""
 echo "=== VNC Access Points ==="
 vnc_ports=()
-for port in {5900..5919}; do
+for port in {5900..5909}; do
     if netstat -tuln 2>/dev/null | grep -q ":${port} "; then
         vnc_ports+=($port)
     fi
 done
-echo "VNC ports active: ${#vnc_ports[@]}/20"
+echo "VNC ports active: ${#vnc_ports[@]}/10"
 
 if [ ${#vnc_ports[@]} -gt 0 ]; then
     echo "Active VNC ports: ${vnc_ports[*]}"
