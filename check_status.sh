@@ -90,7 +90,7 @@ echo ""
 echo "=== Output Files ==="
 if [ -f "output/vm_info.txt" ]; then
     vm_entries=$(grep -c "ubuntu-vm-" "output/vm_info.txt" 2>/dev/null || echo "0")
-    echo "VM entries in info file: $vm_entries/20"
+    echo "VM entries in info file: $vm_entries/10"
 else
     echo "VM info file not found"
 fi
@@ -98,14 +98,14 @@ fi
 # Port usage summary
 echo ""
 echo "=== Port Usage Summary ==="
-echo "VNC Ports (5900-5919): ${#vnc_ports[@]}/20 in use"
+echo "VNC Ports (5900-5909): ${#vnc_ports[@]}/10 in use"
 http_ports=()
-for port in {8000..8019}; do
+for port in {8000..8009}; do
     if netstat -tuln 2>/dev/null | grep -q ":${port} "; then
         http_ports+=($port)
     fi
 done
-echo "HTTP Ports (8000-8019): ${#http_ports[@]}/20 in use"
+echo "HTTP Ports (8000-8009): ${#http_ports[@]}/10 in use"
 
 # Resource usage
 echo ""
