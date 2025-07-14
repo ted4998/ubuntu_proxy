@@ -126,7 +126,7 @@ validate_vm_configs() {
     fi
     
     # Validate generated configurations
-    local configs_valid=true
+    local configs_valid=0  # 0 = success, 1 = failure
     
     for i in $(seq 1 "$NUM_VMS"); do
         local config_file="${VM_CONFIGS_DIR}/vm-${i}.json"
@@ -143,16 +143,16 @@ validate_vm_configs() {
                         success "  VM config vm-${i}.json has required field: $field"
                     else
                         error "  VM config vm-${i}.json missing required field: $field"
-                        configs_valid=false
+                        configs_valid=1
                     fi
                 done
             else
                 error "VM config vm-${i}.json is not valid JSON"
-                configs_valid=false
+                configs_valid=1
             fi
         else
             error "VM config file vm-${i}.json not found"
-            configs_valid=false
+            configs_valid=1
         fi
     done
     
