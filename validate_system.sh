@@ -209,26 +209,26 @@ main() {
     log "Starting VM Manager System Validation"
     log "Project directory: $PROJECT_DIR_REALPATH"
     
-    local overall_valid=true
+    local overall_valid=0  # 0 = success, 1 = failure
     
     if ! validate_files; then
-        overall_valid=false
+        overall_valid=1
     fi
     
     if ! validate_vpn_configs; then
-        overall_valid=false
+        overall_valid=1
     fi
     
     if ! validate_vm_configs; then
-        overall_valid=false
+        overall_valid=1
     fi
     
     if ! validate_system_requirements; then
-        overall_valid=false
+        overall_valid=1
     fi
     
     log "=== Validation Summary ==="
-    if [ "$overall_valid" = true ]; then
+    if [ "$overall_valid" -eq 0 ]; then
         success "All validations passed! System appears to be ready."
         log "You can now run './manage_vms.sh' to create VMs (requires KVM support)"
         log "Or run './manage_vms.sh --test-mode' to test without creating actual VMs"
@@ -236,6 +236,8 @@ main() {
         error "Some validations failed. Please address the issues above."
         log "You can still run './manage_vms.sh --test-mode' to test configuration validation"
     fi
+    
+    return $overall_valid
 }
 
 # Run main function
