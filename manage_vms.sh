@@ -7,6 +7,37 @@
 set -eo pipefail # Exit on error, treat unset variables as an error, and propagate pipeline errors
 export DEBIAN_FRONTEND=noninteractive # Ensure apt-get doesn't prompt
 
+# --- Command Line Options ---
+TEST_MODE=false
+SKIP_KVM_CHECK=false
+
+# Parse command line options
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --test-mode)
+            TEST_MODE=true
+            shift
+            ;;
+        --skip-kvm-check)
+            SKIP_KVM_CHECK=true
+            shift
+            ;;
+        --help)
+            echo "Usage: $0 [OPTIONS]"
+            echo "Options:"
+            echo "  --test-mode        Run in test mode (skip actual VM creation)"
+            echo "  --skip-kvm-check   Skip KVM availability check"
+            echo "  --help             Show this help message"
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
+
 # --- Constants ---
 PROJECT_DIR_REALPATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 ISO_DIR="${PROJECT_DIR_REALPATH}/iso"
