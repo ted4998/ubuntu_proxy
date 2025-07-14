@@ -251,5 +251,5 @@ If you encounter issues:
 
 ---
 
-**Total Creation Time**: Expect 2-6 hours depending on your hardware and internet connection.
-**Final Result**: 20 fully functional Ubuntu Desktop VMs with VPN and remote access.
+**Total Creation Time**: Expect 1-3 hours for 10 VMs (2-6 hours for 20 VMs) depending on your hardware and internet connection.
+**Final Result**: 10 fully functional Ubuntu Desktop VMs with VPN and remote access (easily scalable to 20).
