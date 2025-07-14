@@ -9,7 +9,7 @@ PROJECT_DIR_REALPATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 VPN_CONFIG_DIR="${PROJECT_DIR_REALPATH}/vpn"
 VM_CONFIGS_DIR="${PROJECT_DIR_REALPATH}/vm_configs"
 SCRIPTS_DIR="${PROJECT_DIR_REALPATH}/scripts"
-NUM_VMS=20
+NUM_VMS=10
 
 # Colors for output
 RED='\033[0;31m'
