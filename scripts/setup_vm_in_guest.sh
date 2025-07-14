@@ -20,9 +20,39 @@ echo "Host HTTP Port for fetching: ${HTTP_PORT_FOR_GUEST}"
 
 # Ensure script is run as root
 if [ "$(id -u)" -ne 0 ]; then
-  echo "Error: This script must be run as root. Exiting."
+  echo "Error: This script must be run as root. Current user: $(whoami), UID: $(id -u)"
   exit 1
 fi
+
+echo "Running as root (UID: $(id -u))"
+
+# Validate required environment variables
+if [ -z "${VM_ID_FOR_GUEST}" ]; then
+    echo "Error: VM_ID_FOR_GUEST environment variable is not set"
+    exit 1
+fi
+
+if [ -z "${VNC_PASS_FOR_GUEST}" ]; then
+    echo "Error: VNC_PASS_FOR_GUEST environment variable is not set"
+    exit 1
+fi
+
+if [ -z "${OVPN_CONF_FILENAME_FOR_GUEST}" ]; then
+    echo "Error: OVPN_CONF_FILENAME_FOR_GUEST environment variable is not set"
+    exit 1
+fi
+
+if [ -z "${HOST_IP_FOR_GUEST}" ]; then
+    echo "Error: HOST_IP_FOR_GUEST environment variable is not set"
+    exit 1
+fi
+
+if [ -z "${HTTP_PORT_FOR_GUEST}" ]; then
+    echo "Error: HTTP_PORT_FOR_GUEST environment variable is not set"
+    exit 1
+fi
+
+echo "All required environment variables are set"
 
 # Wait for network and services to be more reliably up.
 # Especially important if this script runs very early in boot.
