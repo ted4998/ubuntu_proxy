@@ -1,12 +1,12 @@
 {
     "vm_id": 5,
     "vm_name": "ubuntu-vm-5",
-    "mac_address": "52:54:00:3d:4e:40",
+    "mac_address": "52:54:00:0f:5f:42",
     "vnc_port_host": 5904,
-    "vnc_password": "3dt5IyTH",
-    "uuid": "4a0f902d-c02c-4d20-a2a8-e1fe677f3c99",
-    "bios_serial": "VMBS0005RND5558",
-    "cpu_model": "Cascadelake-Server-noTSX",
+    "vnc_password": "7o0STBkU",
+    "uuid": "1ac6bc86-257e-434d-82a9-93f3f5d9b07a",
+    "bios_serial": "VMBS0005RND8094",
+    "cpu_model": "Westmere-IBRS",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-5.ovpn"
