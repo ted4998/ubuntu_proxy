@@ -53,7 +53,7 @@ fi
 echo ""
 echo "=== Running VMs ==="
 vm_pids=($(ps aux | grep "qemu-system-x86_64.*ubuntu-vm-" | grep -v grep | awk '{print $2}'))
-echo "Running VMs: ${#vm_pids[@]}/20"
+echo "Running VMs: ${#vm_pids[@]}/10"
 
 if [ ${#vm_pids[@]} -gt 0 ]; then
     echo ""
