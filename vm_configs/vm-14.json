@@ -1,0 +1,13 @@
+{
+    "vm_id": 14,
+    "vm_name": "ubuntu-vm-14",
+    "mac_address": "52:54:00:6f:b4:dd",
+    "vnc_port_host": 5913,
+    "vnc_password": "8WoUje6L",
+    "uuid": "8c75140a-a758-46b2-9ee8-277b09d9a98f",
+    "bios_serial": "VMBS0014RND4742",
+    "cpu_model": "Opteron_G3",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-14.ovpn"
+}

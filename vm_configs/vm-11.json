@@ -1,0 +1,13 @@
+{
+    "vm_id": 11,
+    "vm_name": "ubuntu-vm-11",
+    "mac_address": "52:54:00:4b:73:ad",
+    "vnc_port_host": 5910,
+    "vnc_password": "ORAfB3RJ",
+    "uuid": "f4f3822c-b86e-4e55-ad51-bdd0dc7b92ad",
+    "bios_serial": "VMBS0011RND5620",
+    "cpu_model": "EPYC-Milan",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-11.ovpn"
+}

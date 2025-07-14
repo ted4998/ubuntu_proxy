@@ -1,0 +1,13 @@
+{
+    "vm_id": 19,
+    "vm_name": "ubuntu-vm-19",
+    "mac_address": "52:54:00:6f:42:32",
+    "vnc_port_host": 5918,
+    "vnc_password": "35fYIiaX",
+    "uuid": "cc64f021-dbcb-457c-a16d-23108a7fc9d6",
+    "bios_serial": "VMBS0019RND9296",
+    "cpu_model": "EPYC-IBPB",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-19.ovpn"
+}

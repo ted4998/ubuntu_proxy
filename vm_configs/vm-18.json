@@ -1,0 +1,13 @@
+{
+    "vm_id": 18,
+    "vm_name": "ubuntu-vm-18",
+    "mac_address": "52:54:00:55:83:69",
+    "vnc_port_host": 5917,
+    "vnc_password": "m4LNeQDu",
+    "uuid": "71583680-4762-44aa-adcb-7f5690a18815",
+    "bios_serial": "VMBS0018RND8418",
+    "cpu_model": "qemu64",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-18.ovpn"
+}

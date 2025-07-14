@@ -1,0 +1,13 @@
+{
+    "vm_id": 17,
+    "vm_name": "ubuntu-vm-17",
+    "mac_address": "52:54:00:6a:33:7b",
+    "vnc_port_host": 5916,
+    "vnc_password": "aW6VR2z5",
+    "uuid": "b5359aa2-f9b8-4614-8aa5-e670d911ee69",
+    "bios_serial": "VMBS0017RND6729",
+    "cpu_model": "Nehalem-IBRS",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-17.ovpn"
+}

@@ -1,0 +1,13 @@
+{
+    "vm_id": 20,
+    "vm_name": "ubuntu-vm-20",
+    "mac_address": "52:54:00:1d:f1:a6",
+    "vnc_port_host": 5919,
+    "vnc_password": "ysiK7E9l",
+    "uuid": "1bf6d1c5-082e-4420-957a-b4169c905344",
+    "bios_serial": "VMBS0020RND2061",
+    "cpu_model": "Haswell-noTSX-IBRS",
+    "ram_size_mb": 2144,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-20.ovpn"
+}

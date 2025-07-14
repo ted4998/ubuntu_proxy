@@ -1,13 +1,13 @@
 {
     "vm_id": 4,
     "vm_name": "ubuntu-vm-4",
-    "mac_address": "52:54:00:67:a4:1d",
+    "mac_address": "52:54:00:36:58:0a",
     "vnc_port_host": 5903,
-    "vnc_password": "4wTl7bB6",
-    "uuid": "154e88ee-6947-45cf-b7d9-e0293fc2fdb5",
-    "bios_serial": "VMBS0004RND1396",
-    "cpu_model": "Westmere-IBRS",
-    "ram_size_mb": 2096,
+    "vnc_password": "bcD7ot5Q",
+    "uuid": "c9b217e2-7826-49d4-bfd1-0b6076c3097b",
+    "bios_serial": "VMBS0004RND7061",
+    "cpu_model": "EPYC-Rome",
+    "ram_size_mb": 2144,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-4.ovpn"
 }

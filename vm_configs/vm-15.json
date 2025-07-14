@@ -1,0 +1,13 @@
+{
+    "vm_id": 15,
+    "vm_name": "ubuntu-vm-15",
+    "mac_address": "52:54:00:1d:c8:cd",
+    "vnc_port_host": 5914,
+    "vnc_password": "huJosdzG",
+    "uuid": "3f16863d-429d-4f7a-b2ae-85e326148beb",
+    "bios_serial": "VMBS0015RND4375",
+    "cpu_model": "kvm64",
+    "ram_size_mb": 2048,
+    "disk_size_gb": 20,
+    "openvpn_config_file": "vpn-15.ovpn"
+}
