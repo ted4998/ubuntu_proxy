@@ -149,8 +149,10 @@ sudo ./manage_vms.sh --test-mode
 
 ### Production Deployment
 ```bash
-# Full 20 VM deployment
-sudo ./start_20_vms.sh
+# Full 10 VM deployment
+sudo ./start_10_vms.sh
+
+# Future: Scale to 20 VMs (see scaling section)
 ```
 
 ### Maintenance
