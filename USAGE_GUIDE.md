@@ -86,7 +86,8 @@ sudo ./complete_cleanup.sh
 ```
 /your/project/directory/
 ├── manage_vms.sh              # Main VM creation script
-├── start_20_vms.sh           # Enhanced startup with checks
+├── start_10_vms.sh           # Enhanced startup with checks (10 VMs)
+├── start_20_vms.sh           # Enhanced startup with checks (20 VMs)
 ├── complete_cleanup.sh       # Complete system cleanup
 ├── validate_system.sh        # System validation
 ├── check_status.sh           # Status checker
@@ -98,12 +99,41 @@ sudo ./complete_cleanup.sh
 │   ├── preseed.cfg           # Ubuntu installation automation
 │   └── setup_vm_in_guest.sh  # In-guest setup script
 ├── vpn/
-│   ├── vpn-1.ovpn           # VPN configs 1-20
+│   ├── vpn-1.ovpn           # VPN configs 1-20 (available)
 │   └── ... (vpn-20.ovpn)
 ├── vm_configs/              # Generated VM configurations
 ├── vm_disks/               # VM disk images
 └── output/
     └── vm_info.txt         # VM access information
+
+## Scaling to 20 VMs
+
+When you're ready to scale to 20 VMs, follow these simple steps:
+
+### Quick Scale-Up Process:
+```bash
+# 1. Stop current VMs (if running)
+sudo ./complete_cleanup.sh
+
+# 2. Update configuration files
+sed -i 's/NUM_VMS=10/NUM_VMS=20/g' manage_vms.sh
+sed -i 's/NUM_VMS = 10/NUM_VMS = 20/g' scripts/generate_vm_configs.py
+sed -i 's/NUM_VMS=10/NUM_VMS=20/g' validate_system.sh
+sed -i 's/NUM_VMS=10/NUM_VMS=20/g' cleanup_vm_environment.sh
+
+# 3. Update startup script references
+sed -i 's/8000-8009/8000-8019/g' complete_cleanup.sh
+sed -i 's/{5900..5909}/{5900..5919}/g' monitor_progress.sh check_status.sh
+
+# 4. Start 20 VMs
+sudo ./start_20_vms.sh
+```
+
+### Additional Requirements for 20 VMs:
+- **CPU**: 8+ cores (recommended 16+)
+- **RAM**: 64GB+ (40GB+ VMs + host overhead)
+- **Disk**: 500GB+ (400GB VMs + overhead)
+- **Time**: 2-6 hours for full deployment
 ```
 
 ## Usage Scenarios
