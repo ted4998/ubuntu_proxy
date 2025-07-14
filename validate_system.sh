@@ -88,7 +88,7 @@ validate_files() {
 validate_vpn_configs() {
     log "=== Validating VPN Configurations ==="
     
-    local vpn_valid=true
+    local vpn_valid=0  # 0 = success, 1 = failure
     
     if [ ! -d "$VPN_CONFIG_DIR" ]; then
         error "VPN config directory $VPN_CONFIG_DIR not found"
@@ -106,7 +106,7 @@ validate_vpn_configs() {
             fi
         else
             error "VPN config file vpn-${i}.ovpn not found"
-            vpn_valid=false
+            vpn_valid=1
         fi
     done
     
