@@ -36,28 +36,28 @@ warning() {
 validate_files() {
     log "=== Validating Project Files ==="
     
-    local files_valid=true
+    local files_valid=0  # 0 = success, 1 = failure
     
     # Check main scripts
     if [ -f "${PROJECT_DIR_REALPATH}/manage_vms.sh" ] && [ -x "${PROJECT_DIR_REALPATH}/manage_vms.sh" ]; then
         success "manage_vms.sh exists and is executable"
     else
         error "manage_vms.sh missing or not executable"
-        files_valid=false
+        files_valid=1
     fi
     
     if [ -f "${PROJECT_DIR_REALPATH}/cleanup_vm_environment.sh" ] && [ -x "${PROJECT_DIR_REALPATH}/cleanup_vm_environment.sh" ]; then
         success "cleanup_vm_environment.sh exists and is executable"
     else
         error "cleanup_vm_environment.sh missing or not executable"
-        files_valid=false
+        files_valid=1
     fi
     
     if [ -f "${PROJECT_DIR_REALPATH}/bootstrap_vm_setup.sh" ] && [ -x "${PROJECT_DIR_REALPATH}/bootstrap_vm_setup.sh" ]; then
         success "bootstrap_vm_setup.sh exists and is executable"
     else
         error "bootstrap_vm_setup.sh missing or not executable"
-        files_valid=false
+        files_valid=1
     fi
     
     # Check scripts directory
@@ -65,21 +65,21 @@ validate_files() {
         success "generate_vm_configs.py exists and is executable"
     else
         error "generate_vm_configs.py missing or not executable"
-        files_valid=false
+        files_valid=1
     fi
     
     if [ -f "${SCRIPTS_DIR}/preseed.cfg" ]; then
         success "preseed.cfg exists"
     else
         error "preseed.cfg missing"
-        files_valid=false
+        files_valid=1
     fi
     
     if [ -f "${SCRIPTS_DIR}/setup_vm_in_guest.sh" ] && [ -x "${SCRIPTS_DIR}/setup_vm_in_guest.sh" ]; then
         success "setup_vm_in_guest.sh exists and is executable"
     else
         error "setup_vm_in_guest.sh missing or not executable"
-        files_valid=false
+        files_valid=1
     fi
     
     return $files_valid
