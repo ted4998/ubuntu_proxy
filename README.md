@@ -237,6 +237,20 @@ SOFTWARE.
 
 ## 14. `bootstrap_vm_setup.sh` Script Content
 This is the content for the **external** `bootstrap_vm_setup.sh` script. You would save this script on your target server (or pipe it via `curl`), make it executable, and run it with `sudo`. It will then prompt for your Git repository URL containing the main project files (like `manage_vms.sh`, `scripts/`, etc.).
+## 15. `bootstrap_vm_setup.sh` Step-by-step
+1. **Save the script**: Save the `bootstrap_vm_setup.sh` script to a file on your server. For example, `bootstrap.sh`.
+2. **Make it executable**:
+   ```bash
+   chmod +x bootstrap.sh
+   ```
+3. **Run with sudo**:
+   ```bash
+   sudo ./bootstrap.sh
+   ```
+4. **Enter the repository URL**: The script will prompt you for the HTTPS URL of your Git repository. This repository should contain the `manage_vms.sh` script and the `scripts` and `vpn` directories.
+5. **Monitor the process**: The script will clone the repository and then execute `manage_vms.sh`. This process will take a significant amount of time. You can monitor the output in the console.
+
+**Note on idempotency**: If the script detects that the project directory already exists, it will attempt to pull the latest changes from the repository. If you want to start fresh, it's recommended to delete the project directory before running the bootstrap script again.
 
 ```bash
 #!/bin/bash
