@@ -124,7 +124,7 @@ autoinstall:
     - htop
     - nano
     - firefox
-    - telegram-desktop
+    - snapd
   user-data:
     disable_root: false
   users:
@@ -143,18 +143,32 @@ autoinstall:
   late-commands:
     - curtin in-target --target=/target -- systemctl enable ssh
     - curtin in-target --target=/target -- systemctl enable gdm3
-  runcmd:
-    - systemctl start gdm3
-    - systemctl enable gdm3
-    - |
-      # Setup VNC
-      mkdir -p /home/vmuser/.vnc
-      echo "$vnc_password" | vncpasswd -f > /home/vmuser/.vnc/passwd
-      chmod 600 /home/vmuser/.vnc/passwd
-      chown -R vmuser:vmuser /home/vmuser/.vnc
-      
-      # Create VNC startup script
-      cat > /home/vmuser/.vnc/xstartup << 'VNCEOF'
+    - curtin in-target --target=/target -- snap install telegram-desktop
+  write_files:
+    - path: /tmp/vm_post_install.sh
+      permissions: '0755'
+      content: |
+        #!/bin/bash
+        # VM Post-Installation Setup
+        set -e
+        
+        VM_ID=$vm_id
+        log() { echo "[\$(date '+%Y-%m-%d %H:%M:%S')] \$1" | tee -a /var/log/vm-setup.log; }
+        
+        log "=== Starting VM Post-Installation Setup ==="
+        
+        # Wait for desktop to be ready
+        sleep 60
+        
+        # Setup VNC
+        log "Setting up VNC server..."
+        mkdir -p /home/vmuser/.vnc
+        echo "$vnc_password" | vncpasswd -f > /home/vmuser/.vnc/passwd
+        chmod 600 /home/vmuser/.vnc/passwd
+        chown -R vmuser:vmuser /home/vmuser/.vnc
+        
+        # Create VNC startup script
+        cat > /home/vmuser/.vnc/xstartup << 'VNCEOF'
 #!/bin/bash
 export XKL_XMODMAP_DISABLE=1
 export XDG_CURRENT_DESKTOP="ubuntu:GNOME"
@@ -164,47 +178,76 @@ export GNOME_SHELL_SESSION_MODE="ubuntu"
 export DESKTOP_SESSION="ubuntu"
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
-exec /etc/X11/xinit/xinitrc
+exec /usr/bin/gnome-session
 VNCEOF
-      chmod +x /home/vmuser/.vnc/xstartup
-      
-      # Create systemd service for VNC
-      cat > /etc/systemd/system/vncserver@.service << 'SVCEOF'
+        chmod +x /home/vmuser/.vnc/xstartup
+        chown vmuser:vmuser /home/vmuser/.vnc/xstartup
+        
+        # Create systemd service for x11vnc
+        cat > /etc/systemd/system/x11vnc.service << 'SVCEOF'
 [Unit]
-Description=Remote Desktop VNC Service
-After=syslog.target network.target
+Description=VNC Server for VM
+After=graphical.target network.target
+Wants=graphical.target
 
 [Service]
-Type=forking
-User=vmuser
-Group=vmuser
-WorkingDirectory=/home/vmuser
-ExecStartPre=/bin/sh -c '/usr/bin/x11vnc -kill :1 > /dev/null 2>&1 || :'
-ExecStart=/usr/bin/x11vnc -forever -display :0 -rfbport 5900 -rfbauth /home/vmuser/.vnc/passwd -shared -bg
-ExecStop=/usr/bin/x11vnc -kill :1
+Type=simple
+User=root
+Environment=DISPLAY=:0
+ExecStartPre=/bin/bash -c 'while [ ! -S /tmp/.X11-unix/X0 ]; do sleep 1; done'
+ExecStart=/usr/bin/x11vnc -forever -display :0 -rfbauth /home/vmuser/.vnc/passwd -rfbport 5900 -shared -noxdamage
 Restart=on-failure
-RestartSec=5
+RestartSec=10
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=graphical.target
 SVCEOF
-      
-      systemctl daemon-reload
-      systemctl enable vncserver@1.service
-      
-    - |
-      # Setup OpenVPN (copy config from host)
-      mkdir -p /etc/openvpn/client
-      # VPN config will be copied during VM creation
-      
-    - |
-      # Install Telegram Desktop
-      snap install telegram-desktop
-      
-    - |
-      # Final setup
-      systemctl start vncserver@1.service
-      update-grub
+        
+        systemctl daemon-reload
+        systemctl enable x11vnc.service
+        
+        # Enable auto-login
+        cat > /etc/gdm3/custom.conf << 'GDMEOF'
+[daemon]
+AutomaticLoginEnable=true
+AutomaticLogin=vmuser
+
+[security]
+
+[xdmcp]
+
+[chooser]
+
+[debug]
+GDMEOF
+        
+        # Create VM info file on desktop
+        mkdir -p /home/vmuser/Desktop
+        cat > /home/vmuser/Desktop/VM-Info.txt << INFOEOF
+=== VM Information ===
+VM ID: $vm_id
+Hostname: \$(hostname)
+VNC Port: 5900
+SSH User: vmuser
+Password: userpass
+VNC Password: $vnc_password
+
+=== Setup Status ===
+Installation completed at: \$(date)
+INFOEOF
+        chown vmuser:vmuser /home/vmuser/Desktop/VM-Info.txt
+        
+        log "=== VM Post-Installation Setup Complete ==="
+        
+        # Restart services
+        systemctl restart gdm3
+        systemctl start x11vnc.service
+        
+        log "VM is ready for VNC connection!"
+  runcmd:
+    - systemctl start gdm3
+    - systemctl enable gdm3
+    - /tmp/vm_post_install.sh
 EOF
 
     # Create meta-data
