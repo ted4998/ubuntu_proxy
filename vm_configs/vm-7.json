@@ -1,12 +1,12 @@
 {
     "vm_id": 7,
     "vm_name": "ubuntu-vm-7",
-    "mac_address": "52:54:00:23:62:30",
+    "mac_address": "52:54:00:3f:0f:ea",
     "vnc_port_host": 5906,
-    "vnc_password": "5cTly6AA",
-    "uuid": "106dac05-8c4d-42b4-8431-f3da1506df23",
-    "bios_serial": "VMBS0007RND4214",
-    "cpu_model": "Cascadelake-Server-noTSX",
+    "vnc_password": "qXBlsNhf",
+    "uuid": "de335cff-84c7-49a8-a8f8-d4090dc58288",
+    "bios_serial": "VMBS0007RND2085",
+    "cpu_model": "phenom",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-7.ovpn"

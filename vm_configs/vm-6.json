@@ -1,12 +1,12 @@
 {
     "vm_id": 6,
     "vm_name": "ubuntu-vm-6",
-    "mac_address": "52:54:00:1a:c1:70",
+    "mac_address": "52:54:00:63:14:48",
     "vnc_port_host": 5905,
-    "vnc_password": "1KIi4DiP",
-    "uuid": "3f93b023-5355-4d27-a33e-7e919b88fb68",
-    "bios_serial": "VMBS0006RND8364",
-    "cpu_model": "Opteron_G2",
+    "vnc_password": "DSbxiPfG",
+    "uuid": "2064c669-67da-4cc9-b1ef-5c14f9954fb7",
+    "bios_serial": "VMBS0006RND3453",
+    "cpu_model": "Westmere-IBRS",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-6.ovpn"

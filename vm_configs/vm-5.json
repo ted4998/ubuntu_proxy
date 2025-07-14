@@ -1,12 +1,12 @@
 {
     "vm_id": 5,
     "vm_name": "ubuntu-vm-5",
-    "mac_address": "52:54:00:46:ad:1a",
+    "mac_address": "52:54:00:79:fc:58",
     "vnc_port_host": 5904,
-    "vnc_password": "fsMa1YiU",
-    "uuid": "54f841fd-18a0-4cde-b5ee-967d0f6df098",
-    "bios_serial": "VMBS0005RND4341",
-    "cpu_model": "athlon",
+    "vnc_password": "ZrWqTyiQ",
+    "uuid": "821c43d1-1879-4ec9-82a0-d94d16bd63c2",
+    "bios_serial": "VMBS0005RND8173",
+    "cpu_model": "IvyBridge-IBRS",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-5.ovpn"

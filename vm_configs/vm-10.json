@@ -1,12 +1,12 @@
 {
     "vm_id": 10,
     "vm_name": "ubuntu-vm-10",
-    "mac_address": "52:54:00:19:80:43",
+    "mac_address": "52:54:00:63:01:31",
     "vnc_port_host": 5909,
-    "vnc_password": "en0Cp7Ik",
-    "uuid": "25d63b4a-ad3a-4998-a493-51569560f380",
-    "bios_serial": "VMBS0010RND3484",
-    "cpu_model": "Skylake-Client-IBRS",
+    "vnc_password": "zhhdPNPv",
+    "uuid": "69f05f62-d0a6-4436-b652-e81007009658",
+    "bios_serial": "VMBS0010RND3205",
+    "cpu_model": "Opteron_G3",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-10.ovpn"
