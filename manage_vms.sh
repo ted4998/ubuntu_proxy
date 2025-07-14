@@ -465,9 +465,18 @@ EOF
     done
 
     log "All VM processing finished. Check $VM_INFO_FILE for summary."
-    log "VMs may need a few minutes to fully boot and complete all guest setup tasks (OpenVPN, Telegram)."
-    log "Access VMs via VNC: localhost:PORT (e.g., localhost:5900, localhost:5901, ...)."
-    log "If KVM group memberships were changed, the original user ($SUDO_USER) may need to log out and back in for direct (non-sudo) QEMU/virsh usage."
+    
+    if [ "$TEST_MODE" = true ]; then
+        log "=== TEST MODE SUMMARY ==="
+        log "Configuration validation completed for $NUM_VMS VMs."
+        log "All VM configurations appear to be valid."
+        log "To create actual VMs, run without --test-mode flag on a KVM-enabled host."
+        log "VM info file created: $VM_INFO_FILE"
+    else
+        log "VMs may need a few minutes to fully boot and complete all guest setup tasks (OpenVPN, Telegram)."
+        log "Access VMs via VNC: localhost:PORT (e.g., localhost:5900, localhost:5901, ...)."
+        log "If KVM group memberships were changed, the original user ($SUDO_USER) may need to log out and back in for direct (non-sudo) QEMU/virsh usage."
+    fi
 }
 
 # --- Script Execution ---
