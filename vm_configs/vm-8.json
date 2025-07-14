@@ -1,13 +1,13 @@
 {
     "vm_id": 8,
     "vm_name": "ubuntu-vm-8",
-    "mac_address": "52:54:00:4f:c1:92",
+    "mac_address": "52:54:00:63:49:bb",
     "vnc_port_host": 5907,
-    "vnc_password": "Fc5bc0W0",
-    "uuid": "e53e2dad-63ec-44e3-bc5e-83bcbbc240ab",
-    "bios_serial": "VMBS0008RND8582",
-    "cpu_model": "qemu64",
-    "ram_size_mb": 2000,
+    "vnc_password": "StSsY0L5",
+    "uuid": "c4f5a3e1-40b6-4de5-b089-ab1f3d086261",
+    "bios_serial": "VMBS0008RND3234",
+    "cpu_model": "Cascadelake-Server-noTSX",
+    "ram_size_mb": 2096,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-8.ovpn"
 }

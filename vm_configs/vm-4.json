@@ -1,13 +1,13 @@
 {
     "vm_id": 4,
     "vm_name": "ubuntu-vm-4",
-    "mac_address": "52:54:00:02:89:fa",
+    "mac_address": "52:54:00:40:90:ff",
     "vnc_port_host": 5903,
-    "vnc_password": "7eOkzB8u",
-    "uuid": "77552e86-81f6-47dc-9c9f-4aa0a3936e1a",
-    "bios_serial": "VMBS0004RND5315",
-    "cpu_model": "SandyBridge-IBRS",
-    "ram_size_mb": 2144,
+    "vnc_password": "2bJZcNSo",
+    "uuid": "ffefe87c-9f82-401f-9983-b6b64956cde0",
+    "bios_serial": "VMBS0004RND4872",
+    "cpu_model": "Nehalem-IBRS",
+    "ram_size_mb": 2000,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-4.ovpn"
 }
