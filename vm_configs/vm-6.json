@@ -1,12 +1,12 @@
 {
     "vm_id": 6,
     "vm_name": "ubuntu-vm-6",
-    "mac_address": "52:54:00:62:e1:fb",
+    "mac_address": "52:54:00:38:19:8d",
     "vnc_port_host": 5905,
-    "vnc_password": "S0MBs4KC",
-    "uuid": "af34a97f-12b6-410e-9b2a-229668696e05",
-    "bios_serial": "VMBS0006RND3518",
-    "cpu_model": "qemu64",
+    "vnc_password": "pXuG6jv0",
+    "uuid": "fa28287c-ef84-43a3-8ff6-6366de237b66",
+    "bios_serial": "VMBS0006RND7625",
+    "cpu_model": "EPYC-IBPB",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-6.ovpn"
