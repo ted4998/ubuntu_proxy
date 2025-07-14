@@ -150,7 +150,14 @@ setup_host_environment() {
 
     log "Checking for Ubuntu Desktop ISO at $ISO_FULL_PATH..."
     mkdir -p "$ISO_DIR"
-    if [ ! -f "$ISO_FULL_PATH" ]; then
+    if [ "$TEST_MODE" = true ]; then
+        log "Test mode: Skipping ISO download."
+        # Create a dummy ISO file for testing
+        if [ ! -f "$ISO_FULL_PATH" ]; then
+            log "Creating dummy ISO file for testing..."
+            echo "# Dummy ISO file for testing" > "$ISO_FULL_PATH"
+        fi
+    elif [ ! -f "$ISO_FULL_PATH" ]; then
         log "ISO not found. Attempting to download from $UBUNTU_ISO_URL..."
         log "This is a large file (approx 5GB) and may take a significant time."
         # Download to a temporary name, then rename to avoid partial ISO being used if script interrupted
