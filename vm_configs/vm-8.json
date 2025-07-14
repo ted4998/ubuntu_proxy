@@ -1,13 +1,13 @@
 {
     "vm_id": 8,
     "vm_name": "ubuntu-vm-8",
-    "mac_address": "52:54:00:15:7e:e8",
+    "mac_address": "52:54:00:77:50:9e",
     "vnc_port_host": 5907,
-    "vnc_password": "E3bGmLWs",
-    "uuid": "925989b1-b22a-40fe-9049-9d32210abe57",
-    "bios_serial": "VMBS0008RND8509",
-    "cpu_model": "Opteron_G4",
-    "ram_size_mb": 2096,
+    "vnc_password": "l5YKW6lS",
+    "uuid": "928588ed-7e2f-4ec8-8e4c-e99a8350d1d0",
+    "bios_serial": "VMBS0008RND8060",
+    "cpu_model": "Opteron_G3",
+    "ram_size_mb": 2144,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-8.ovpn"
 }

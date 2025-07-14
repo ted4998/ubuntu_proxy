@@ -1,12 +1,12 @@
 {
     "vm_id": 9,
     "vm_name": "ubuntu-vm-9",
-    "mac_address": "52:54:00:1b:13:d1",
+    "mac_address": "52:54:00:5e:cd:5e",
     "vnc_port_host": 5908,
-    "vnc_password": "1geJve5x",
-    "uuid": "8fda6892-be05-4087-821c-c55ba6a4c57b",
-    "bios_serial": "VMBS0009RND7816",
-    "cpu_model": "EPYC-IBPB",
+    "vnc_password": "Bls9tBfF",
+    "uuid": "f058a604-88c8-440c-bacf-2168609d33a6",
+    "bios_serial": "VMBS0009RND4008",
+    "cpu_model": "Skylake-Client-IBRS",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-9.ovpn"

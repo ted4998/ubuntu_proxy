@@ -1,12 +1,12 @@
 {
     "vm_id": 6,
     "vm_name": "ubuntu-vm-6",
-    "mac_address": "52:54:00:12:82:ad",
+    "mac_address": "52:54:00:06:7f:10",
     "vnc_port_host": 5905,
-    "vnc_password": "0fZDcLyY",
-    "uuid": "0b123d3f-4c9f-49d0-afe4-935061d648a1",
-    "bios_serial": "VMBS0006RND6989",
-    "cpu_model": "Haswell-noTSX-IBRS",
+    "vnc_password": "GAhez4wa",
+    "uuid": "4c33f8fe-6403-41b5-ae34-62f6b881be69",
+    "bios_serial": "VMBS0006RND7139",
+    "cpu_model": "IvyBridge-IBRS",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-6.ovpn"

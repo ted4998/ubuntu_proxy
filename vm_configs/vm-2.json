@@ -1,12 +1,12 @@
 {
     "vm_id": 2,
     "vm_name": "ubuntu-vm-2",
-    "mac_address": "52:54:00:17:1b:06",
+    "mac_address": "52:54:00:4e:61:09",
     "vnc_port_host": 5901,
-    "vnc_password": "7VGqC656",
-    "uuid": "f6bbd2e2-11ad-4a9f-b659-140d1382c0ab",
-    "bios_serial": "VMBS0002RND5013",
-    "cpu_model": "athlon",
+    "vnc_password": "JjAowZSB",
+    "uuid": "3317df7f-cabf-40bf-ad3b-0105779e443b",
+    "bios_serial": "VMBS0002RND5244",
+    "cpu_model": "Cascadelake-Server-noTSX",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-2.ovpn"
