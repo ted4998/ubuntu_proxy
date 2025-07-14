@@ -28,17 +28,17 @@ while true; do
     
     # Check VNC ports
     vnc_active=0
-    for port in {5900..5919}; do
+    for port in {5900..5909}; do
         if netstat -tuln 2>/dev/null | grep -q ":${port} "; then
             ((vnc_active++))
         fi
     done
     
     echo "Progress Status:"
-    echo "- Disk images created: $disk_count/20"
-    echo "- VMs currently running: $vm_count/20"
+    echo "- Disk images created: $disk_count/10"
+    echo "- VMs currently running: $vm_count/10"
     echo "- HTTP servers active: $http_count"
-    echo "- VNC ports active: $vnc_active/20"
+    echo "- VNC ports active: $vnc_active/10"
     echo ""
     
     # Show recent log entries
