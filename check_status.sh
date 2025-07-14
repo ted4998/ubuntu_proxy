@@ -21,7 +21,7 @@ echo ""
 echo "=== VM Configurations ==="
 if [ -d "vm_configs" ]; then
     config_count=$(ls vm_configs/vm-*.json 2>/dev/null | wc -l)
-    echo "VM config files: $config_count/20"
+    echo "VM config files: $config_count/10"
 else
     echo "VM config directory not found"
 fi
@@ -31,7 +31,7 @@ echo ""
 echo "=== VPN Configurations ==="
 if [ -d "vpn" ]; then
     vpn_count=$(ls vpn/vpn-*.ovpn 2>/dev/null | wc -l)
-    echo "VPN config files: $vpn_count/20"
+    echo "VPN config files: $vpn_count/10 (available: $vpn_count)"
 else
     echo "VPN directory not found"
 fi
@@ -41,7 +41,7 @@ echo ""
 echo "=== VM Disk Images ==="
 if [ -d "vm_disks" ]; then
     disk_count=$(ls vm_disks/*.qcow2 2>/dev/null | wc -l)
-    echo "Disk images created: $disk_count/20"
+    echo "Disk images created: $disk_count/10"
     if [ $disk_count -gt 0 ]; then
         echo "Total disk usage: $(du -sh vm_disks/ 2>/dev/null | cut -f1)"
     fi
