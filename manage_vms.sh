@@ -312,14 +312,25 @@ EOF
             log "Temporary content prepared."
 
             log "Starting temporary HTTP server for $vm_name on port $current_http_port..."
+            
+            # Check if port is available first
+            if netstat -tuln 2>/dev/null | grep -q ":${current_http_port} "; then
+                log "Error: Port $current_http_port is already in use. Skipping VM $vm_name."
+                rm -rf "$current_temp_serve_dir"
+                continue
+            fi
+            
             log "Attempting to start temporary HTTP server for $vm_name on port $current_http_port in $current_temp_serve_dir..."
-            # Launch in subshell, redirect stderr to a temp file to check for immediate errors like "port already in use"
+            
+            # Start HTTP server and capture the actual python process PID (not subshell PID)
             HTTP_SERVER_ERROR_LOG=$(mktemp)
-            (cd "$current_temp_serve_dir" && python3 -m http.server "$current_http_port" > "${HTTP_SERVER_ERROR_LOG}" 2>&1 &)
+            cd "$current_temp_serve_dir"
+            python3 -m http.server "$current_http_port" > "${HTTP_SERVER_ERROR_LOG}" 2>&1 &
             http_server_pid=$!
-
+            cd - > /dev/null
+            
             # Give it a moment to either start or fail quickly
-            sleep 2
+            sleep 3
 
             if ! ps -p "$http_server_pid" > /dev/null; then
                 log "Error: HTTP server process (PID $http_server_pid) for $vm_name did not start or exited immediately."
