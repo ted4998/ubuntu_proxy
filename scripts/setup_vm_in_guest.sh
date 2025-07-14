@@ -68,15 +68,39 @@ apt-get update -y || {
 
 # --- VNC Setup (x11vnc) ---
 echo "Setting up x11vnc..."
+
+# Check if x11vnc is available
+if ! command -v x11vnc > /dev/null 2>&1; then
+    echo "Error: x11vnc command not found. Installing..."
+    apt-get update -y
+    apt-get install -y x11vnc
+    if ! command -v x11vnc > /dev/null 2>&1; then
+        echo "Error: Failed to install x11vnc"
+        exit 1
+    fi
+fi
+
 X11VNC_PASSWORD_FILE="/etc/x11vnc.pass"
 # Ensure the directory for the password file exists, though /etc should.
 mkdir -p "$(dirname "$X11VNC_PASSWORD_FILE")"
-echo "${VNC_PASS_FOR_GUEST}" | x11vnc -storepasswd -f "${X11VNC_PASSWORD_FILE}"
+
+echo "Creating VNC password file..."
+if ! echo "${VNC_PASS_FOR_GUEST}" | x11vnc -storepasswd -f "${X11VNC_PASSWORD_FILE}"; then
+    echo "Error: Failed to create VNC password file"
+    exit 1
+fi
+
+# Ensure vmuser exists
+if ! id -u vmuser > /dev/null 2>&1; then
+    echo "Error: User 'vmuser' does not exist"
+    exit 1
+fi
+
 # x11vnc may run as vmuser if started from user session, but here we make root own it.
 # For system-wide autostart, root ownership of the password file is fine if x11vnc is run as root.
 # If x11vnc is to be run as vmuser by the autostart mechanism, vmuser needs read access.
-chown root:root "${X11VNC_PASSWORD_FILE}"
-chmod 400 "${X11VNC_PASSWORD_FILE}" # Only readable by root
+chown vmuser:vmuser "${X11VNC_PASSWORD_FILE}"
+chmod 400 "${X11VNC_PASSWORD_FILE}" # Only readable by owner (vmuser)
 
 # Using XDG autostart for x11vnc - this starts when vmuser's desktop session begins.
 # This is generally more reliable with display managers like LightDM.
@@ -87,25 +111,15 @@ cat << EOF > "${AUTOSTART_DIR}/x11vnc_autostart.desktop"
 Type=Application
 Name=X11VNC Server Autostart
 Comment=Autostart X11VNC for user vmuser
-Exec=/usr/bin/x11vnc -forever -loop -noxdamage -repeat -rfbauth ${X11VNC_PASSWORD_FILE} -rfbport 5900 -shared -o /var/log/x11vnc.log -display :0
+Exec=/usr/bin/x11vnc -forever -loop -noxdamage -repeat -rfbauth ${X11VNC_PASSWORD_FILE} -rfbport 5900 -shared -o /home/vmuser/x11vnc.log -display :0
 StartupNotify=false
 Terminal=false
 Hidden=false
 EOF
-# x11vnc log will be written by the user running the X session (vmuser)
-# So /var/log/x11vnc.log needs to be writable by vmuser or x11vnc run as root.
-# Let's make the log writable by all for simplicity, or choose /home/vmuser/x11vnc.log
-# Changed log path to /var/log/x11vnc.log and x11vnc will likely run as vmuser via autostart.
-# The Exec line in .desktop will run as vmuser. So password file must be readable by vmuser.
-# Let's adjust password file permissions.
-chown vmuser:vmuser "${X11VNC_PASSWORD_FILE}"
-chmod 400 "${X11VNC_PASSWORD_FILE}" # Readable by owner (vmuser) only
 
 # Log for x11vnc itself, ensure vmuser can write to it.
 touch /home/vmuser/x11vnc.log
 chown vmuser:vmuser /home/vmuser/x11vnc.log
-# Update .desktop file to use this log path
-sed -i 's|-o /var/log/x11vnc.log|-o /home/vmuser/x11vnc.log|' "${AUTOSTART_DIR}/x11vnc_autostart.desktop"
 
 echo "x11vnc configured to autostart with user session (logs to /home/vmuser/x11vnc.log)."
 
