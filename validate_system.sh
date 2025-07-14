@@ -162,7 +162,7 @@ validate_vm_configs() {
 validate_system_requirements() {
     log "=== Validating System Requirements ==="
     
-    local sys_valid=true
+    local sys_valid=0  # 0 = success, 1 = failure
     
     # Check architecture
     local arch=$(uname -m)
@@ -187,7 +187,7 @@ validate_system_requirements() {
             success "Required command '$cmd' is available"
         else
             error "Required command '$cmd' is not available"
-            sys_valid=false
+            sys_valid=1
         fi
     done
     
