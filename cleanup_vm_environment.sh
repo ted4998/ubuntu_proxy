@@ -10,7 +10,7 @@ set -u # Treat unset variables as an error
 # Default number of VMs, used for guessing HTTP server port range in logs.
 # Should ideally match NUM_VMS in manage_vms.sh for log message accuracy,
 # but the actual port cleanup loop uses a fixed sensible range.
-NUM_VMS=10
+NUM_VMS=20
 HTTP_SERVER_PORT_BASE=8000 # Matches manage_vms.sh
 
 # --- Helper Functions ---
