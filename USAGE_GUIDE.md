@@ -56,30 +56,30 @@ sudo ./complete_cleanup.sh
 - **RAM**: ~2GB (with slight variations)
 - **Disk**: 20GB
 - **CPU**: 1 core with 80% limit
-- **VNC Port**: 5900-5919 (localhost:5900 for VM1, localhost:5901 for VM2, etc.)
+- **VNC Port**: 5900-5909 (localhost:5900 for VM1, localhost:5901 for VM2, etc.)
 - **Unique**: MAC address, UUID, BIOS serial, CPU model
 - **VPN**: Unique OpenVPN configuration
 - **Software**: VNC server, OpenVPN client, Telegram Desktop
 
 ### Network Access:
-- **VNC**: Connect to `localhost:5900` through `localhost:5919`
+- **VNC**: Connect to `localhost:5900` through `localhost:5909`
 - **Credentials**: Username `vmuser`, Password `userpass`
 - **VNC Passwords**: Unique per VM (see `output/vm_info.txt`)
 
 ## Resource Requirements
 
 ### Minimum System Requirements:
-- **CPU**: 8+ cores (recommended 16+ for good performance)
-- **RAM**: 64GB+ (20 VMs × 2GB each + host overhead)
-- **Disk**: 500GB+ free space (20 VMs × 20GB each + overhead)
+- **CPU**: 4+ cores (recommended 8+ for good performance)
+- **RAM**: 32GB+ (10 VMs × 2GB each + host overhead)
+- **Disk**: 250GB+ free space (10 VMs × 20GB each + overhead)
 - **Architecture**: x86_64
 - **Virtualization**: KVM enabled
 
 ### Port Usage:
-- **VNC**: 5900-5919 (20 ports)
-- **HTTP Servers**: 8000-8019 (temporary during installation)
-- **QEMU Monitor**: 4401-4420
-- **QMP**: 4501-4520
+- **VNC**: 5900-5909 (10 ports)
+- **HTTP Servers**: 8000-8009 (temporary during installation)
+- **QEMU Monitor**: 4401-4410
+- **QMP**: 4501-4510
 
 ## File Structure
 
