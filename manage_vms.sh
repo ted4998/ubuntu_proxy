@@ -236,7 +236,7 @@ main() {
             continue
         fi
 
-        log "--- Processing VM $i ($vm_name) from $vm_config_file ---"
+        log "--- Processing VM $i from $vm_config_file ---"
 
         local vm_name=$(jq -r '.vm_name' "$vm_config_file")
         local mac_address=$(jq -r '.mac_address' "$vm_config_file")
@@ -254,6 +254,30 @@ main() {
         local current_http_port=$((HTTP_SERVER_PORT_BASE + i - 1))
         local current_temp_serve_dir="${TEMP_SERVE_DIR_BASE}-${vm_id}"
         local vm_params_script_name="vm-${vm_id}-params.sh"
+
+        if [ "$TEST_MODE" = true ]; then
+            log "Test mode: Validating VM $vm_name configuration..."
+            log "  Name: $vm_name"
+            log "  MAC: $mac_address"
+            log "  VNC Port: $vnc_port_host"
+            log "  UUID: $vm_uuid"
+            log "  CPU Model: $cpu_model"
+            log "  RAM: ${ram_mb}MB"
+            log "  Disk Size: ${disk_size_gb}GB"
+            log "  OpenVPN Config: $openvpn_config_file"
+            
+            # Validate VPN config file exists
+            if [ ! -f "${VPN_CONFIG_DIR}/${openvpn_config_file}" ]; then
+                log "  Error: VPN config file ${VPN_CONFIG_DIR}/${openvpn_config_file} not found!"
+            else
+                log "  VPN config file found: ${VPN_CONFIG_DIR}/${openvpn_config_file}"
+            fi
+            
+            # Log to vm_info.txt even in test mode
+            echo "${vm_name},${mac_address},${vnc_port_host},${vnc_password},${vm_uuid},${bios_serial}" >> "$VM_INFO_FILE"
+            log "--- Test validation complete for VM $vm_name ---"
+            continue
+        fi
 
         if [ -f "$disk_image_path" ]; then
             log "Disk image $disk_image_path already exists for VM $vm_name. Skipping installation phase."
