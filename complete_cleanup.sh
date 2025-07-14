@@ -15,9 +15,9 @@ sudo pkill -f "qemu-system-x86_64" 2>/dev/null || true
 echo "Stopping all Python HTTP servers..."
 sudo pkill -f "python.*http.server" 2>/dev/null || true
 
-# Free up all ports 8000-8019 (for 20 VMs)
-echo "Freeing up ports 8000-8019..."
-for port in {8000..8019}; do
+# Free up all ports 8000-8009 (for 10 VMs)
+echo "Freeing up ports 8000-8009..."
+for port in {8000..8009}; do
     sudo fuser -k ${port}/tcp 2>/dev/null || true
 done
 
