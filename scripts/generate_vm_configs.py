@@ -32,7 +32,7 @@ CPU_MODELS = [
 ]
 
 # Ensure enough unique CPU models, or repeat them if fewer than NUM_VMS
-NUM_VMS = 20
+NUM_VMS = 10
 if len(CPU_MODELS) < NUM_VMS:
     cpu_model_choices = CPU_MODELS * (NUM_VMS // len(CPU_MODELS)) + CPU_MODELS[:NUM_VMS % len(CPU_MODELS)]
 else:
