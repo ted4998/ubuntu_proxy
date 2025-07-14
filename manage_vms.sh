@@ -332,36 +332,34 @@ EOF
             # Give it a moment to either start or fail quickly
             sleep 3
 
-            if ! ps -p "$http_server_pid" > /dev/null; then
+            # Validate the HTTP server process
+            if [ -z "$http_server_pid" ] || ! ps -p "$http_server_pid" > /dev/null 2>&1; then
                 log "Error: HTTP server process (PID $http_server_pid) for $vm_name did not start or exited immediately."
                 if [ -s "$HTTP_SERVER_ERROR_LOG" ]; then
                     log "HTTP Server stderr/stdout:"
                     cat "$HTTP_SERVER_ERROR_LOG"
                 else
-                    log "No specific error output from HTTP server captured. Check if port $current_http_port is in use or if python3 http.server works manually."
+                    log "No specific error output from HTTP server captured."
                 fi
                 rm -f "$HTTP_SERVER_ERROR_LOG"
                 rm -rf "$current_temp_serve_dir"
                 continue
             fi
 
-            # Check if the process is indeed python
+            # Verify it's actually a python process
             if ! ps -p "$http_server_pid" -o comm= | grep -q "python"; then
                 log "Error: Process with PID $http_server_pid for $vm_name is not a Python process. HTTP server launch likely failed."
                 if [ -s "$HTTP_SERVER_ERROR_LOG" ]; then
                     log "HTTP Server stderr/stdout:"
                     cat "$HTTP_SERVER_ERROR_LOG"
                 fi
-                kill "$http_server_pid" 2>/dev/null || true # Attempt to kill the unexpected process
+                kill "$http_server_pid" 2>/dev/null || true
                 rm -f "$HTTP_SERVER_ERROR_LOG"
                 rm -rf "$current_temp_serve_dir"
                 continue
             fi
 
-            # Check if server produced immediate errors (e.g. port in use) even if process started
-            # Python's http.server usually prints "Serving HTTP on 0.0.0.0 port XXXX" on success to stdout.
-            # If it prints an error to stderr (like address already in use) and exits, the PID might be caught briefly.
-            # The redirection to HTTP_SERVER_ERROR_LOG captures both.
+            # Check if server produced immediate errors even if process started
             if [ -s "$HTTP_SERVER_ERROR_LOG" ] && grep -E "Address already in use|Errno 98" "$HTTP_SERVER_ERROR_LOG"; then
                 log "Error: HTTP server for $vm_name failed to start, likely port $current_http_port is already in use."
                 log "HTTP Server output:"
