@@ -1,7 +1,7 @@
-# QEMU VM Manager - Complete Guide for 20 VMs
+# QEMU VM Manager - Complete Guide for 10 VMs (Scalable to 20 VMs)
 
 ## Overview
-This enhanced QEMU VM Manager can create and manage 20 Ubuntu Desktop VMs with unique configurations, VPN connections, and VNC access.
+This enhanced QEMU VM Manager can create and manage 10 Ubuntu Desktop VMs with unique configurations, VPN connections, and VNC access. It's designed to easily scale to 20 VMs when needed.
 
 ## Quick Start
 
@@ -17,7 +17,7 @@ sudo ./complete_cleanup.sh
 
 ### 3. Start VM Creation (Recommended)
 ```bash
-sudo ./start_20_vms.sh
+sudo ./start_10_vms.sh
 ```
 
 ### 4. Monitor Progress (In Another Terminal)
@@ -32,7 +32,7 @@ sudo ./start_20_vms.sh
 # Test mode (validation only)
 sudo ./manage_vms.sh --test-mode
 
-# Create all 20 VMs
+# Create all 10 VMs
 sudo ./manage_vms.sh
 
 # Skip KVM check (for testing)
