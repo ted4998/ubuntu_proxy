@@ -98,15 +98,43 @@ setup_host_environment() {
     fi
     log "Host dependencies installed successfully."
 
-    log "Checking for KVM availability (using kvm-ok)..."
-    if ! kvm-ok > /dev/null 2>&1; then
-        log "Error: KVM acceleration is not available or not configured correctly (checked via kvm-ok)."
-        log "Please ensure virtualization is enabled in BIOS and KVM modules are loaded."
-        log "Attempting to show kvm-ok diagnostic output:"
-        kvm-ok || true # Show output even if it errors, for diagnostics
-        exit 1
+    # Environment detection
+    CONTAINER_ENV=false
+    if [ -f /.dockerenv ] || [ -f /run/.containerenv ] || grep -q "container" /proc/1/cgroup 2>/dev/null; then
+        CONTAINER_ENV=true
+        log "Container environment detected."
     fi
-    log "KVM acceleration is available."
+
+    ARCH=$(uname -m)
+    if [ "$ARCH" != "x86_64" ]; then
+        log "Warning: Architecture is $ARCH, but this system is designed for x86_64."
+    fi
+
+    log "Checking for KVM availability (using kvm-ok)..."
+    if [ "$SKIP_KVM_CHECK" = true ]; then
+        log "KVM check skipped due to --skip-kvm-check flag."
+    elif [ "$TEST_MODE" = true ]; then
+        log "KVM check skipped in test mode."
+    elif [ "$CONTAINER_ENV" = true ]; then
+        log "Warning: Running in container environment. KVM may not be available."
+        log "Use --skip-kvm-check flag to bypass this check."
+        if ! kvm-ok > /dev/null 2>&1; then
+            log "KVM is not available in this container environment."
+            log "This is expected in containerized environments."
+            log "For actual VM creation, run on a host with KVM support."
+            log "Continuing in validation mode..."
+        fi
+    else
+        if ! kvm-ok > /dev/null 2>&1; then
+            log "Error: KVM acceleration is not available or not configured correctly (checked via kvm-ok)."
+            log "Please ensure virtualization is enabled in BIOS and KVM modules are loaded."
+            log "Attempting to show kvm-ok diagnostic output:"
+            kvm-ok || true # Show output even if it errors, for diagnostics
+            log "Use --skip-kvm-check to bypass this check for testing."
+            exit 1
+        fi
+        log "KVM acceleration is available."
+    fi
 
     local current_user
     current_user="${SUDO_USER:-$(logname 2>/dev/null || whoami)}"
