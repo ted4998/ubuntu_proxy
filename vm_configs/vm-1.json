@@ -1,12 +1,12 @@
 {
     "vm_id": 1,
     "vm_name": "ubuntu-vm-1",
-    "mac_address": "52:54:00:07:bb:46",
+    "mac_address": "52:54:00:10:69:2d",
     "vnc_port_host": 5900,
-    "vnc_password": "wKdZBy1Y",
-    "uuid": "03fc5125-b611-4ac2-81db-a78a097aa225",
-    "bios_serial": "VMBS0001RND8454",
-    "cpu_model": "Skylake-Client-IBRS",
+    "vnc_password": "cV3wGK3d",
+    "uuid": "b1467bbf-9bc3-4536-8f0f-53ca1f996211",
+    "bios_serial": "VMBS0001RND2153",
+    "cpu_model": "Opteron_G5",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-1.ovpn"

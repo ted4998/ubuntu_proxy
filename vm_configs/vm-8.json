@@ -1,12 +1,12 @@
 {
     "vm_id": 8,
     "vm_name": "ubuntu-vm-8",
-    "mac_address": "52:54:00:7c:5a:f4",
+    "mac_address": "52:54:00:6b:ab:50",
     "vnc_port_host": 5907,
-    "vnc_password": "sOhunM8u",
-    "uuid": "e2fcb533-f88b-42ee-88d5-e2f7f8657792",
-    "bios_serial": "VMBS0008RND7025",
-    "cpu_model": "phenom",
+    "vnc_password": "uoaPuFFm",
+    "uuid": "59b42560-53e7-4299-b8df-042e7194c096",
+    "bios_serial": "VMBS0008RND3086",
+    "cpu_model": "EPYC-Rome",
     "ram_size_mb": 2000,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-8.ovpn"

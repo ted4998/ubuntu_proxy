@@ -1,12 +1,12 @@
 {
     "vm_id": 9,
     "vm_name": "ubuntu-vm-9",
-    "mac_address": "52:54:00:12:39:93",
+    "mac_address": "52:54:00:4c:6d:a9",
     "vnc_port_host": 5908,
-    "vnc_password": "VufuY7Ak",
-    "uuid": "19e3218c-ddc6-461d-8482-bc2609f6ef89",
-    "bios_serial": "VMBS0009RND1219",
-    "cpu_model": "SandyBridge-IBRS",
+    "vnc_password": "wtTJjVqj",
+    "uuid": "b297d34c-e9a5-4840-924c-789103924861",
+    "bios_serial": "VMBS0009RND2001",
+    "cpu_model": "Opteron_G4",
     "ram_size_mb": 2048,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-9.ovpn"
