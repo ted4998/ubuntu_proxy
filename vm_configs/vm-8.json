@@ -1,13 +1,13 @@
 {
     "vm_id": 8,
     "vm_name": "ubuntu-vm-8",
-    "mac_address": "52:54:00:31:59:20",
+    "mac_address": "52:54:00:06:75:c3",
     "vnc_port_host": 5907,
-    "vnc_password": "maAti3WP",
-    "uuid": "27b7fc4c-c4b8-4e5f-abbf-e2dd8f8d69d2",
-    "bios_serial": "VMBS0008RND7917",
-    "cpu_model": "IvyBridge-IBRS",
-    "ram_size_mb": 2000,
+    "vnc_password": "cC339MXl",
+    "uuid": "f55784c7-230e-4747-a59b-7170e47f4265",
+    "bios_serial": "VMBS0008RND1608",
+    "cpu_model": "Haswell-noTSX-IBRS",
+    "ram_size_mb": 2144,
     "disk_size_gb": 20,
     "openvpn_config_file": "vpn-8.ovpn"
 }
