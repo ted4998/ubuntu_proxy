@@ -224,11 +224,22 @@ Edit `scripts/generate_vm_configs.py`:
 Replace files in `vpn/` directory with your own OpenVPN configs
 
 ### Change VM Count:
-Modify `NUM_VMS=20` in:
+Modify `NUM_VMS=10` in:
 - `manage_vms.sh`
 - `scripts/generate_vm_configs.py`
 - `validate_system.sh`
 - `cleanup_vm_environment.sh`
+
+Then update port ranges in monitoring scripts accordingly.
+
+**Quick Scale Commands Available:**
+```bash
+# Scale to 20 VMs
+sed -i 's/NUM_VMS=10/NUM_VMS=20/g' manage_vms.sh scripts/generate_vm_configs.py validate_system.sh cleanup_vm_environment.sh
+
+# Scale back to 10 VMs  
+sed -i 's/NUM_VMS=20/NUM_VMS=10/g' manage_vms.sh scripts/generate_vm_configs.py validate_system.sh cleanup_vm_environment.sh
+```
 
 ## Support
 
